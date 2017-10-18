@@ -7,13 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 
 namespace SpasiboBank
 {
     public partial class Form1 : Form
     {
+
+        public string usermoney;
+
+        public string nameuser;
+        int tries = 0;
+        Main ss = new Main();
         public Form1()
         {
             InitializeComponent();
@@ -31,32 +38,76 @@ namespace SpasiboBank
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\direc\OneDrive\Documents\Data.mdf;Integrated Security=True;Connect Timeout=30;");
-            SqlDataAdapter sda = new SqlDataAdapter(" Select Count(*) From [Table] where Username ='" + textBox1.Text + "' and Password ='" + textBox2.Text + "'", con);
+            MySqlConnection con = new MySqlConnection("SERVER=db4free.net;PORT=3307;DATABASE=spasibo_bank;UID=serglit10229;PWD=serglit102;");
+            MySqlDataAdapter sda = new MySqlDataAdapter(" Select Count(*) From Login where Username ='" + textBox1.Text + "' and Password ='" + textBox2.Text + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
-            if(dt.Rows[0][0].ToString() == "1")
+
+
+            Console.WriteLine(textBox1);
+
+            if (dt.Rows[0][0].ToString() == "1")
             {
+
                 this.Hide();
 
-                Main ss = new Main();
+                
+                ss.Usernamelabel.Text = nameuser;
+                if (nameuser == "ARBUZ")
+                {
+                    ss.ARBUZbutton.Enabled = false;
+                    usermoney = "ARBUZMoney";
+                }
+                if (nameuser == "BobZEHorse")
+                {
+                    ss.BobZEHorsebutton.Enabled = false;
+                    usermoney = "BOBmoney";
+                }
+                if (nameuser == "HankZEChmo")
+                {
+                    ss.HankZEChmobutton.Enabled = false;
+                    usermoney = "HANKMoney";
+                }
+
+
                 ss.Show();
             }
             else
             {
-                MessageBox.Show("Please visit a doctor!");
+                tries++;
+                if (tries == 1)
+                {
+                    MessageBox.Show("It seems that you are having trouble with your memory. Please, see a doctor", "OOPS", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                    tries++;
+                }
+                if (tries > 2)
+                {
+                    MessageBox.Show("TOO BAD", "Still having trouble?", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                }
             }
 
-        }
 
+            //("SELECT * FROM BOBmoney", con)
+            MySqlDataAdapter sps = new MySqlDataAdapter("SELECT * FROM  + %s ", con, usermoney );
+            DataTable dataTable = new DataTable();
+            sps.Fill(dataTable);
+            ss.dataGridView1.DataSource = dataTable;
+
+
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            nameuser = textBox1.Text;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }
