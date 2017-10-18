@@ -17,10 +17,14 @@ namespace SpasiboBank
     {
 
         public string usermoney;
+        public bool Send = false;
 
         public string nameuser;
         int tries = 0;
         Main ss = new Main();
+
+        public MySqlConnection con = new MySqlConnection("SERVER=db4free.net;PORT=3307;DATABASE=spasibo_bank;UID=serglit10229;PWD=serglit102;");
+
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +42,7 @@ namespace SpasiboBank
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MySqlConnection con = new MySqlConnection("SERVER=db4free.net;PORT=3307;DATABASE=spasibo_bank;UID=serglit10229;PWD=serglit102;");
+            
             MySqlDataAdapter sda = new MySqlDataAdapter(" Select Count(*) From Login where Username ='" + textBox1.Text + "' and Password ='" + textBox2.Text + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -93,7 +97,14 @@ namespace SpasiboBank
             ss.dataGridView1.DataSource = dataTable;
 
 
+            
+
+
+
+
         }
+
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             nameuser = textBox1.Text;

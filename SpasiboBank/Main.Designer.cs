@@ -121,6 +121,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Usernamelabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
             this.Text = "Maincs";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -132,11 +133,11 @@
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
         public System.Windows.Forms.Label Usernamelabel;
         public System.Windows.Forms.RadioButton ARBUZbutton;
         public System.Windows.Forms.RadioButton BobZEHorsebutton;
         public System.Windows.Forms.RadioButton HankZEChmobutton;
         public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.TextBox textBox2;
     }
 }
