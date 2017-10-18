@@ -86,9 +86,8 @@ namespace SpasiboBank
                 }
             }
 
-
             //("SELECT * FROM BOBmoney", con)
-            MySqlDataAdapter sps = new MySqlDataAdapter("SELECT * FROM  + %s ", con, usermoney );
+            MySqlDataAdapter sps = new MySqlDataAdapter("SELECT * FROM " + usermoney, con);
             DataTable dataTable = new DataTable();
             sps.Fill(dataTable);
             ss.dataGridView1.DataSource = dataTable;
