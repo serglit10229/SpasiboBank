@@ -18,7 +18,7 @@ namespace SpasiboBank
 
         public string usermoney;
         public bool Send = false;
-
+        bool loginclick = false;
         public string nameuser;
         int tries = 0;
         Main ss = new Main();
@@ -32,7 +32,7 @@ namespace SpasiboBank
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            button1.Focus();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -40,9 +40,9 @@ namespace SpasiboBank
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void Login()
         {
-            
+
             MySqlDataAdapter sda = new MySqlDataAdapter(" Select Count(*) From Login where Username ='" + textBox1.Text + "' and Password ='" + textBox2.Text + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -55,7 +55,7 @@ namespace SpasiboBank
 
                 this.Hide();
 
-                
+
                 ss.Usernamelabel.Text = nameuser;
                 if (nameuser == "ARBUZ")
                 {
@@ -95,13 +95,11 @@ namespace SpasiboBank
             DataTable dataTable = new DataTable();
             sps.Fill(dataTable);
             ss.dataGridView1.DataSource = dataTable;
+        }
 
-
-            
-
-
-
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Login();
         }
 
 
@@ -118,6 +116,16 @@ namespace SpasiboBank
         private void button1_KeyPress(object sender, KeyPressEventArgs e)
         {
             
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyData)
+            {
+                case Keys.Enter:
+                    Login();
+                    break;
+            }
         }
     }
 }

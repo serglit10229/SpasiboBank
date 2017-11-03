@@ -14,7 +14,7 @@ namespace SpasiboBank
     public partial class Main : Form
     {
 
-        public Form1 form = new Form1();
+        //public Form1 form = new Form1();
         
         public Main()
         {
