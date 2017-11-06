@@ -13,9 +13,12 @@ namespace SpasiboBank
 {
     public partial class Main : Form
     {
+        public MySqlConnection con = new MySqlConnection("SERVER=db4free.net;PORT=3307;DATABASE=spasibo_bank;UID=serglit10229;PWD=serglit102;");
+        public string usermoney;
+        public string nameuser;
 
         //public Form1 form = new Form1();
-        
+
         public Main()
         {
             InitializeComponent();
@@ -44,13 +47,31 @@ namespace SpasiboBank
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            //MySqlCommand commandInsert = new MySqlCommand("INSERT INTO " + form.usermoney + "(SPSamount) VALUES(@SPSamount)", form.con);
-            //commandInsert.Parameters.AddWithValue("@SPSamount", textBox2);
-            //commandInsert.ExecuteNonQuery();
-            //commandInsert.Parameters.Clear();
-            //MessageBox.Show("Money were unsuccessfully sent. Pending: 666 Hrs, 666 Min, 666 Sec");
-            
+            Usernamelabel.Text = nameuser;
+            if (nameuser == "ARBUZ")
+            {
+                ARBUZbutton.Enabled = false;
+                usermoney = "ARBUZMoney";
+            }
+            if (nameuser == "BobZEHorse")
+            {
+                BobZEHorsebutton.Enabled = false;
+                usermoney = "BOBmoney";
+            }
+            if (nameuser == "HankZEChmo")
+            {
+                HankZEChmobutton.Enabled = false;
+                usermoney = "HANKMoney";
+            }
+
+
+
+            MySqlCommand commandInsert = new MySqlCommand("INSERT INTO " + usermoney + "(SPSamount) VALUES(@SPSamount)", con);
+            commandInsert.Parameters.AddWithValue("@SPSamount", textBox2);
+            commandInsert.ExecuteNonQuery();
+            commandInsert.Parameters.Clear();
+            MessageBox.Show("Money were unsuccessfully sent. Pending: 666 Hrs, 666 Min, 666 Sec");
+
         }
     }
 }
