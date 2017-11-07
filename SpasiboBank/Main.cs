@@ -68,7 +68,7 @@ namespace SpasiboBank
 
             if (BobZEHorsebutton.Checked == true)
             {
-                senduser = "Bobmoney";
+                senduser = "BOBmoney";
             }
             if (ARBUZbutton.Checked == true)
             {
@@ -76,19 +76,27 @@ namespace SpasiboBank
             }
             if (HankZEChmobutton.Checked == true)
             {
-                senduser = "HankMoney";
+                senduser = "HANKMoney";
             }
 
             DateTime localDate = DateTime.Now;
             int sendvalue = int.Parse(textBox2.Text);
-
-            con.Open();
+            if(con.State == ConnectionState.Closed)
+            {
+                con.Open();
+            }
+            
             MySqlCommand commandInsert = new MySqlCommand("INSERT INTO `" +senduser+ "`(`SPSamount`) VALUES ("+sendvalue+")", con);
             commandInsert.Parameters.AddWithValue("@SPSamount", textBox2);
             commandInsert.ExecuteNonQuery();
             commandInsert.Parameters.Clear();
             MessageBox.Show("Money were unsuccessfully sent. Pending: 666 Hrs, 666 Min, 666 Sec");
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 }
