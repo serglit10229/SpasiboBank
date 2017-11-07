@@ -16,6 +16,7 @@ namespace SpasiboBank
         public MySqlConnection con = new MySqlConnection("SERVER=db4free.net;PORT=3307;DATABASE=spasibo_bank;UID=serglit10229;PWD=serglit102;");
         public string usermoney;
         public string nameuser;
+        public string senduser;
 
         //public Form1 form = new Form1();
 
@@ -65,8 +66,24 @@ namespace SpasiboBank
             }
 
 
+            if (BobZEHorsebutton.Checked == true)
+            {
+                senduser = "Bobmoney";
+            }
+            if (ARBUZbutton.Checked == true)
+            {
+                senduser = "ARBUZMoney";
+            }
+            if (HankZEChmobutton.Checked == true)
+            {
+                senduser = "HankMoney";
+            }
 
-            MySqlCommand commandInsert = new MySqlCommand("INSERT INTO " + usermoney + "(SPSamount) VALUES(@SPSamount)", con);
+            DateTime localDate = DateTime.Now;
+            int sendvalue = int.Parse(textBox2.Text);
+
+            con.Open();
+            MySqlCommand commandInsert = new MySqlCommand("INSERT INTO `" +senduser+ "`(`SPSamount`) VALUES ("+sendvalue+")", con);
             commandInsert.Parameters.AddWithValue("@SPSamount", textBox2);
             commandInsert.ExecuteNonQuery();
             commandInsert.Parameters.Clear();
